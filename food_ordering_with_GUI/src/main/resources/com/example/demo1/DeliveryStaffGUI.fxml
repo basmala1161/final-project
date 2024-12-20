@@ -2,15 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demo1.DeliveryStaffController">
     <children>
         <VBox spacing="10" layoutX="10" layoutY="10" prefWidth="580" prefHeight="400">
-            <!-- Title -->
+
             <Label text="Delivery Staff Management" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-            <!-- Staff Table -->
+
             <TableView fx:id="staffTable" prefHeight="200">
                 <columns>
                     <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="100"/>
@@ -21,19 +21,18 @@
                 </columns>
             </TableView>
 
-            <!-- Assigned Orders Section -->
             <HBox spacing="10">
                 <VBox spacing="5" prefWidth="300">
                     <Label text="Assigned Orders"/>
                     <ListView fx:id="assignedOrdersList" prefHeight="150"/>
                 </VBox>
                 <VBox spacing="5" prefWidth="250">
-                    <!-- Show Assigned Orders button -->
+
                     <Button text="Show Assigned Orders" onAction="#showAssignedOrders" prefWidth="150"/>
                 </VBox>
             </HBox>
 
-            <!-- Message Label -->
+
             <Label fx:id="messageLabel" text="" style="-fx-text-fill: red;" wrapText="true"/>
         </VBox>
     </children>

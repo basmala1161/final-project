@@ -11,25 +11,11 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Customer extends Person {
-    static int id;
+
     private String f_name;
     private String l_name;
     private String email;
-    private int phone_number;
-    private String address;
     private String password;
-    private String gender;
-    boolean check = false;
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    Scanner input = new Scanner(System.in);
     Alert_window alert = new Alert_window();
 
     @Override
@@ -40,20 +26,20 @@ public class Customer extends Person {
         grid.setHgap(10);
         grid.setVgap(10);
 
-        // Title
+
         Label title = new Label("Log In");
         title.getStyleClass().add("label-white");
         GridPane.setConstraints(title, 0, 0);
         title.setAlignment(Pos.CENTER);
 
-        // Email
+
         Label email_label = new Label("Email: ");
         GridPane.setConstraints(email_label, 0, 1);
         TextField Email = new TextField();
         Email.setPromptText("Enter your email");
         GridPane.setConstraints(Email, 1, 1);
 
-        // Password
+
         Label password_label = new Label("Password: ");
         GridPane.setConstraints(password_label, 0, 5);
         PasswordField Password = new PasswordField();
@@ -84,7 +70,7 @@ public class Customer extends Person {
         window.show();
 
         submit.setOnAction(e -> {
-            boolean found = false; // Track if login is successful
+            boolean found = false;
             try (BufferedReader reader = new BufferedReader(new FileReader("Register.txt"))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -96,9 +82,9 @@ public class Customer extends Person {
                             System.out.println("Login successful");
                             System.out.println("Welcome, " + record[0] + "!");
                             found = true;
-                            window.close(); // Close the login window
+                            window.close();
 
-                            // Open the Order window after successful login
+
                             Order order = new Order();
                             order.start();
                             break;
@@ -123,26 +109,26 @@ public class Customer extends Person {
         grid.setHgap(10);
         grid.setVgap(10);
 
-        // Title
+
         Label title = new Label("Register");
         GridPane.setConstraints(title, 0, 0);
         title.setAlignment(Pos.CENTER);
 
-        // First Name
+
         Label F_name_label = new Label("First Name: ");
         GridPane.setConstraints(F_name_label, 0, 3);
         TextField F_name = new TextField();
         F_name.setPromptText("Enter your first name");
         GridPane.setConstraints(F_name, 1, 3);
 
-        // Last Name
+
         Label L_name_label = new Label("Last Name");
         GridPane.setConstraints(L_name_label, 0, 5);
         TextField L_name = new TextField();
         L_name.setPromptText("Enter your last name");
         GridPane.setConstraints(L_name, 1, 5);
 
-        // Email
+
         Label email_label = new Label("Email");
         GridPane.setConstraints(email_label, 0, 7);
         TextField email = new TextField();
@@ -154,14 +140,14 @@ public class Customer extends Person {
         });
         GridPane.setConstraints(email, 1, 7);
 
-        // Password
+
         Label password_label = new Label("Password: ");
         GridPane.setConstraints(password_label, 0, 9);
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
         GridPane.setConstraints(password, 1, 9);
 
-        // Confirm password
+
         Label C_password_label = new Label("Confirm Password: ");
         GridPane.setConstraints(C_password_label, 0, 11);
         PasswordField C_password = new PasswordField();
@@ -173,13 +159,13 @@ public class Customer extends Person {
             }
         });
 
-        // Gender
+
         ComboBox<String> comboBox1 = new ComboBox<>();
         comboBox1.getItems().addAll("Female", "Male");
         comboBox1.setPromptText("Gender");
         GridPane.setConstraints(comboBox1, 0, 13);
 
-        // Governorate
+
         ComboBox<String> comboBox2 = new ComboBox<>();
         comboBox2.getItems().addAll("Cairo", "Qalyubia", "Alexandria");
         comboBox2.setPromptText("Governorate");
@@ -192,12 +178,11 @@ public class Customer extends Person {
             this.l_name = L_name.getText();
             this.email = email.getText();
 
-            // Writing to file
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Register.txt", true))) {
                 writer.write(this.f_name + '/' + this.l_name + '/' + this.email + '/' + this.password + '/' + comboBox1.getValue() + '/' + comboBox2.getValue());
                 writer.newLine();
                 System.out.println("The data was stored successfully.");
-                writer.close();
             } catch (IOException msg) {
                 msg.getMessage();
             }

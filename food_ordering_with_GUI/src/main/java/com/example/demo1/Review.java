@@ -1,5 +1,5 @@
 package com.example.demo1;
-import java.io.*;                // For file handling and serialization (ObjectOutputStream, ObjectInputStream, etc.)
+import java.io.*;
 import java.util.ArrayList;
 public class Review implements Serializable {
     private String reviewerName;
@@ -16,20 +16,6 @@ public class Review implements Serializable {
         this.comment = comment;
 
     }
-
-    public String getReviewerName() {
-        return reviewerName;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-
 
 
     @Override
@@ -64,5 +50,5 @@ public class Review implements Serializable {
     }
 
 }
-// Constructor, getters, setters, and toString method
+
 

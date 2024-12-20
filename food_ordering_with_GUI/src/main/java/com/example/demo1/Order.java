@@ -1,5 +1,4 @@
 package com.example.demo1;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -17,14 +16,13 @@ import java.util.stream.Collectors;
 
 public class Order {
 
-    private ArrayList<Restaurant> restaurants = Restaurant.initializeRestaurants(); // All restaurants
+    private ArrayList<Restaurant> restaurants = Restaurant.initializeRestaurants();
     private ComboBox<String> categoryComboBox = new ComboBox<>();
     private ComboBox<String> restaurantComboBox = new ComboBox<>();
     private ComboBox<String> menuComboBox = new ComboBox<>();
     private ListView<String> orderListView = new ListView<>();
-    private String orderLocation;
     private Label totalPriceLabel = new Label("Total Price: 0 EGP");
-    private String orderId; // Add a field to store the Order ID
+
 
     private List<Food> selectedItems = new ArrayList<>();
     private double totalPrice = 0.0;
@@ -33,15 +31,9 @@ public class Order {
         this.totalPrice = totalPrice;
     }
     public Order() {}
-    // Getter and Setter for Order ID
-    public String getOrderId() {
-        return orderId;
-    }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-    // Method to get the last used Order ID
+
+
     private int getLastOrderId() {
         int lastOrderId = 0;
         File orderIdFile = new File("order_id.txt");
@@ -60,7 +52,7 @@ public class Order {
         return lastOrderId;
     }
 
-    // Method to save the new Order ID to the file
+
     private void saveNewOrderId(int newOrderId) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("order_id.txt"))) {
             writer.write(String.valueOf(newOrderId));
@@ -69,10 +61,10 @@ public class Order {
         }
     }
 
-    // Method to save the order to a file
+
     private void saveOrderToFile(int orderId) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("order.txt", true))) {
-            // Write the order ID and details to the file
+
             writer.write("Order ID: " + orderId + "\n");
             writer.write("Order Details:\n");
             for (Food item : selectedItems) {
@@ -103,29 +95,28 @@ public class Order {
         }
     }
 
-    // Updated createOrder method
+
     private void createOrder(ArrayList<DeliveryStaff> staffList) {
         if (selectedItems.isEmpty()) {
             showAlert("No items selected", "Please select items to create an order.");
         } else {
-            // Get the last used order ID and increment it
+
             int lastOrderId = getLastOrderId();
             int newOrderId = lastOrderId + 1;
             Order current = new Order(selectedItems,totalPrice);
-            // Save the new order ID to the file
+
             saveNewOrderId(newOrderId);
 
-            // Save the order to the file with the new order ID
+
             saveOrderToFile(newOrderId);
 
-            // Show success alert with the order ID
+
             showAlert("Order Created", "Your order has been created and saved with Order ID: " + newOrderId);
 
-            // Optionally clear the order list after saving
+
 
             String selectedRestaurantName = restaurantComboBox.getValue();
             if (selectedRestaurantName != null) {
-                // Find the selected restaurant object
                 Restaurant selectedRestaurant = restaurants.stream()
                         .filter(r -> r.getName().equals(selectedRestaurantName))
                         .findFirst()
@@ -148,7 +139,7 @@ public class Order {
                         .orElse(null);
                 if (staff != null) {
                     staff.setStatus(DeliveryStaff.Status.WORK); // Update status
-                    saveAssignedOrderToFile(staff, current,newOrderId);   // Save assigned order to file
+                    saveAssignedOrderToFile(staff, current,newOrderId);
                     System.out.println("Assigned Orders for " + staff.getFirstName() + " saved to file.");
                 } else {
                     System.out.println("No available staff found for location: " + restaurantLocation);
@@ -161,10 +152,9 @@ public class Order {
         }
     }
     public String toString() {
-        // Customize the string to show the details of the order (you can display items, total price, etc.)
         return "Order ID: " + this.hashCode() + " | Total Price: " + totalPrice + " EGP";
     }
-    // Remove item from the order
+
     private void removeItemFromOrder() {
         String selectedItem = orderListView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -180,7 +170,7 @@ public class Order {
         }
     }
 
-    // Show alert method
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -189,7 +179,7 @@ public class Order {
         alert.showAndWait();
     }
 
-    // Method to load the restaurant review page
+
     private void loadRestaurantReviewPage() {
         String selectedRestaurantName = restaurantComboBox.getValue();
         if (selectedRestaurantName != null) {
@@ -213,12 +203,12 @@ public class Order {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("RestaurantReview.fxml"));
                     Scene reviewScene = new Scene(loader.load(), 600, 600);
 
-                    // Get the controller for the review page
+
                     RestaurantReviewController controller = loader.getController();
-                    controller.setRestaurant(selectedRestaurant,selectedRestaurantName);  // Pass the selected restaurant
+                    controller.setRestaurant(selectedRestaurant,selectedRestaurantName);
 
                     Stage window = new Stage();
-                    window.setScene(reviewScene); // Switch to the review page
+                    window.setScene(reviewScene);
                     window.setTitle("Restaurant Review");
                     window.show();
                 } catch (IOException e) {
@@ -231,9 +221,7 @@ public class Order {
             showAlert("No restaurant selected", "Please select a restaurant before adding a review.");
         }
     }
-    public String getOrderLocation() {
-        return orderLocation;
-    }
+
     public void start() {
         Stage primaryStage = new Stage();
         ObservableList<String> categories = FXCollections.observableArrayList(
@@ -245,21 +233,21 @@ public class Order {
         restaurantComboBox.setOnAction(e -> updateMenuByRestaurant());
         menuComboBox.setOnAction(e -> addToOrder());
 
-        // Create order button
+
         Button createOrderButton = new Button("Create Order");
         createOrderButton.setOnAction(e -> {
             DeliveryStaffController deliveryStaffController = new DeliveryStaffController();
-            createOrder(deliveryStaffController.getStaffList()); // First, create the order
+            createOrder(deliveryStaffController.getStaffList());
         });
 
 
-        // Remove item button
+
         Button removeItemButton = new Button("Remove Selected Item");
         removeItemButton.setOnAction(e -> removeItemFromOrder());
 
-        // Add Review button
+
         Button addReviewButton = new Button("Add Review");
-        addReviewButton.setOnAction(e -> loadRestaurantReviewPage()); // Open the review page
+        addReviewButton.setOnAction(e -> loadRestaurantReviewPage());
 
         VBox categoryBox = new VBox(new Label("Select Category:"), categoryComboBox);
         categoryBox.setSpacing(10);
@@ -273,12 +261,12 @@ public class Order {
         menuBox.setSpacing(10);
         menuBox.setPadding(new Insets(10));
 
-        // VBox for the order details and the ListView
+
         VBox orderBox = new VBox(new Label("Your Order:"), orderListView, totalPriceLabel);
         orderBox.setSpacing(10);
         orderBox.setPadding(new Insets(10));
 
-        // Buttons for actions
+
         HBox buttonBox = new HBox(createOrderButton, removeItemButton, addReviewButton);
         buttonBox.setSpacing(10);
         buttonBox.setPadding(new Insets(10));

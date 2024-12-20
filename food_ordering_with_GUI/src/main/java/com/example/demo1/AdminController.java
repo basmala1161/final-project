@@ -1,15 +1,12 @@
 package com.example.demo1;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +14,6 @@ import java.io.IOException;
 
 public class AdminController {
 
-    private static final String FILE_PATH = "Restaurants.txt"; // Path to save restaurant data
     private ObservableList<Restaurant> restaurantList = FXCollections.observableArrayList();
 
     @FXML
@@ -27,33 +23,33 @@ public class AdminController {
     private TextField restaurantNameTextField;
 
     @FXML
-    private TextField locationTextField;  // This is now for location
+    private TextField locationTextField;
 
     @FXML
     private TextField categoryTextField;
 
     @FXML
     public void initialize() {
-        loadRestaurantsFromFile();  // Load restaurants from file on startup
-        restaurantListView.setItems(restaurantList); // Set the ListView items to the restaurant list
+        loadRestaurantsFromFile();
+        restaurantListView.setItems(restaurantList);
 
-        // Set a custom cell factory to display restaurant details in ListView
-        restaurantListView.setCellFactory(param -> new javafx.scene.control.ListCell<Restaurant>() {
+
+        restaurantListView.setCellFactory(param -> new javafx.scene.control.ListCell<>() {
             @Override
             protected void updateItem(Restaurant item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.toString());  // Display the restaurant name, location, and category
+                    setText(item.toString());
                 }
             }
         });
 
-        // Listen for selection changes and update the TextFields
+
         restaurantListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                // Populate TextFields with the selected restaurant details
+
                 restaurantNameTextField.setText(newValue.getName());
                 locationTextField.setText(newValue.getLocation());
                 categoryTextField.setText(newValue.getCategory());
@@ -65,8 +61,8 @@ public class AdminController {
     @FXML
     public void addRestaurant() {
         String name = restaurantNameTextField.getText().trim();
-        String location = locationTextField.getText().trim(); // Get location as a single field
-        String category = categoryTextField.getText().trim(); // Get category
+        String location = locationTextField.getText().trim();
+        String category = categoryTextField.getText().trim();
 
         if (name.isEmpty() || location.isEmpty() || category.isEmpty()) {
             showAlert("Error", "All fields must be filled out.");
@@ -94,29 +90,29 @@ public class AdminController {
 
     @FXML
     private void updateRestaurant() {
-        // Get the selected restaurant
+
         Restaurant selectedRestaurant = restaurantListView.getSelectionModel().getSelectedItem();
 
         if (selectedRestaurant != null) {
-            // Get updated values from TextFields
+
             String name = restaurantNameTextField.getText().trim();
             String location = locationTextField.getText().trim();
             String category = categoryTextField.getText().trim();
 
-            // Check if all fields are filled out
+
             if (!name.isEmpty() && !location.isEmpty() && !category.isEmpty()) {
-                // Update the selected restaurant with new values
+
                 selectedRestaurant.setName(name);
                 selectedRestaurant.setLocation(location);
                 selectedRestaurant.setCategory(category);
 
-                // Refresh the ListView to reflect the changes
+
                 restaurantListView.refresh();
 
-                // Save the updated list of restaurants to file
+
                 saveRestaurantsToFile();
 
-                // Clear input fields after successful update
+
                 clearInputFields();
             } else {
                 showAlert("Error", "All fields must be filled out to update.");
@@ -131,7 +127,7 @@ public class AdminController {
 
     private void clearInputFields() {
         restaurantNameTextField.clear();
-        locationTextField.clear();  // Clear location field
+        locationTextField.clear();
         categoryTextField.clear();
     }
 
@@ -145,7 +141,7 @@ public class AdminController {
 
     private void saveRestaurantsToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Restaurant.txt"))) {
-            // Write each restaurant's data to the file
+
             for (Restaurant restaurant : restaurantList) {
                 writer.write(restaurant.getName() + "," + restaurant.getLocation() + "," + restaurant.getCategory());
                 writer.newLine();
@@ -157,7 +153,7 @@ public class AdminController {
 
 
     private void loadRestaurantsFromFile() {
-        restaurantList.clear(); // Clear the existing list before loading
+        restaurantList.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader("Restaurant.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {

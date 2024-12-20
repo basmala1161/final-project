@@ -1,8 +1,4 @@
 package com.example.demo1;
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,8 +8,11 @@ import javafx.stage.Stage;
 
 public class Confirm {
 
-   static boolean confirm;
+    static boolean confirm;
+    private static String title;
+
     static boolean display(String title,String msg){
+        Confirm.title = title;
         Stage window=new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("title");
@@ -41,7 +40,7 @@ public class Confirm {
         Scene alert_scene=new Scene(layout);
         window.setScene(alert_scene);
         window.showAndWait();
-      return confirm;
+        return confirm;
     }
 
 

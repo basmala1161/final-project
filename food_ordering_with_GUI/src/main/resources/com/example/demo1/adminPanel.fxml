@@ -11,20 +11,20 @@
         <Insets top="20" right="20" bottom="20" left="20" />
     </padding>
 
-    <!-- ListView to display restaurants -->
+
     <ListView fx:id="restaurantListView" prefHeight="300.0" prefWidth="600.0" />
 
-    <!-- Input fields for restaurant details -->
+
     <Label text="Restaurant Name:" />
     <TextField fx:id="restaurantNameTextField" />
 
     <Label text="Location:" />
-    <TextField fx:id="locationTextField" /> <!-- This is now for location (instead of City + Governorate) -->
+    <TextField fx:id="locationTextField" />
 
     <Label text="Category:" />
     <TextField fx:id="categoryTextField" />
 
-    <!-- Buttons for Add, Remove, and Update -->
+
     <Button text="Add Restaurant" onAction="#addRestaurant" />
     <Button text="Remove Selected Restaurant" onAction="#removeRestaurant" />
     <Button text="Update Restaurant" onAction="#updateRestaurant" />

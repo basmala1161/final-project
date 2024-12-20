@@ -8,24 +8,27 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 public class Alert_window {
-   public  Alert_window(){}
+    private static String title;
 
-     static void display(String title,String msg){
+    public  Alert_window(){}
+
+    static void display(String title,String msg){
+        Alert_window.title = title;
         Stage alert=new Stage();
-         alert.initModality(Modality.APPLICATION_MODAL);
-         alert.setTitle("title");
-         alert.setMinWidth(300);
-         Label label=new Label();
-         label.setText(msg);
-         Button button=new Button("close this window");
-         button.setOnAction(e-> alert.close());
-         VBox layout=new VBox(50);
-         layout.getChildren().addAll(label,button);
-         layout.setAlignment(Pos.CENTER);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setTitle("title");
+        alert.setMinWidth(300);
+        Label label=new Label();
+        label.setText(msg);
+        Button button=new Button("close this window");
+        button.setOnAction(e-> alert.close());
+        VBox layout=new VBox(50);
+        layout.getChildren().addAll(label,button);
+        layout.setAlignment(Pos.CENTER);
 
-         Scene alert_scene=new Scene(layout);
-         alert.setScene(alert_scene);
-         alert.showAndWait();
+        Scene alert_scene=new Scene(layout);
+        alert.setScene(alert_scene);
+        alert.showAndWait();
 
-     }
+    }
 }

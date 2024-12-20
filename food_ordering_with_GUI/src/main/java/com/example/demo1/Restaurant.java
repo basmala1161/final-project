@@ -1,15 +1,6 @@
 package com.example.demo1;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Restaurant implements Serializable {
     protected String name;
@@ -17,7 +8,6 @@ public class Restaurant implements Serializable {
     protected String category;
     private ArrayList<Food> menu;
 
-    // Constructor
     public Restaurant(String name, String location, String category) {
         this.name = name;
         this.location = location;
@@ -26,20 +16,10 @@ public class Restaurant implements Serializable {
         this.reviews = new ArrayList<>();
     }
 
-    // Add items to the restaurant's menu
     public void addMenuItem(String itemName, String itemType, double itemPrice) {
         menu.add(new Food(itemName, itemType, itemPrice));
     }
 
-    // Display menu for debugging purposes
-    public void displayMenu() {
-        System.out.println("Menu for " + name + ":");
-        for (Food item : menu) {
-            System.out.println(item.getName() + " (" + item.getType() + "): " + item.getPrice() + " EGP");
-        }
-    }
-
-    // Getters (required for the GUI)
     public String getName() {
         return name;
     }
@@ -59,40 +39,8 @@ public class Restaurant implements Serializable {
     public String toString() {
         return "Restaurant: " + name + ", Location: " + location + ", Category: " + category;
     }
-public static void display_restayrant(){
 
-  ArrayList<Restaurant> restaurants = initializeRestaurants(); // All restaurants
-    Stage Categories_window = new Stage();
-    ObservableList<String> categories = FXCollections.observableArrayList(
-            "Pizza", "Fried Chicken", "Sea Food", "Dessert", "Burgers");
 
-    // Category ListView
-    ListView<String> categoryListView = new ListView<>(categories);
-    // Restaurants ListView
-    ListView<String> restaurantListView = new ListView<>();
-    // Handle category selection
-    categoryListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        if (newValue != null) {
-            // Filter restaurants based on the selected category
-            ObservableList<String> filteredRestaurants = FXCollections.observableArrayList(
-                    restaurants.stream()
-                            .filter(r -> r.getCategory().toLowerCase().contains(newValue.toLowerCase()))
-                            .map(Restaurant::getName)
-                            .collect(Collectors.toList())
-            );
-            restaurantListView.setItems(filteredRestaurants);
-        }
-    });
-
-    // Layout
-    VBox layout = new VBox(10, categoryListView, restaurantListView);
-    Scene scene = new Scene(layout, 500, 500);
-    scene.getStylesheets().add("style.css");
-    Categories_window.setScene(scene);
-    Categories_window.setTitle("HEllo Roqia!...");
-    Categories_window.show();
-}
-    // Static method to initialize restaurant data
     public static ArrayList<Restaurant> initializeRestaurants() {
         ArrayList<Restaurant> restaurants = new ArrayList<>();
 
@@ -163,7 +111,7 @@ public static void display_restayrant(){
         restaurant10.addMenuItem("Iced Cappuccino", "Beverage", 60.0);
         restaurants.add(restaurant10);
 
-        // Add more restaurant initialization as per your original code
+
         return restaurants;
     }
 
@@ -179,24 +127,9 @@ public static void display_restayrant(){
         this.category = category;
     }
 
-
-    public void addReview(Review review) {
-        reviews.add(review);
-    }
-
-    // Get all reviews for this restaurant
     public ArrayList<Review> getReviews() {
         return reviews;
     }
 
-    // Save reviews to file
-    public void saveReviews(String filename) {
-        Review.saveReviewsToFile(reviews, filename);
-    }
-
-    // Load reviews from file
-    public void loadReviews(String filename) {
-        reviews = Review.loadReviewsFromFile(filename);
-    }
     private ArrayList<Review> reviews;
 }

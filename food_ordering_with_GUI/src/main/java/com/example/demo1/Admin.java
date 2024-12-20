@@ -13,54 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Admin extends Person{
-    public class admin {
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String password;
 
-    public admin(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
 
-    // Getters and setters
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-}
-
-Alert_window alert=new Alert_window();
     @Override
     public void logIn() {
         Stage window = new Stage();
@@ -70,27 +24,27 @@ Alert_window alert=new Alert_window();
         grid.setHgap(10);
         grid.setVgap(10);
 
-        // Title Label
+
         Label title = new Label("Log In As Admin");
         title.getStyleClass().add("label-white");
         GridPane.setConstraints(title, 0, 0);
         title.setAlignment(Pos.CENTER);
 
-        // Email Field
+
         Label emailLabel = new Label("Email: ");
         GridPane.setConstraints(emailLabel, 0, 1);
         TextField emailField = new TextField();
         emailField.setPromptText("Enter your email");
         GridPane.setConstraints(emailField, 1, 1);
 
-        // Password Field
+
         Label passwordLabel = new Label("Password: ");
         GridPane.setConstraints(passwordLabel, 0, 2);
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter your password");
         GridPane.setConstraints(passwordField, 1, 2);
 
-        // Submit Button
+
         Button submit = new Button("Submit");
         submit.setOnAction(e -> {
             try {
@@ -121,17 +75,16 @@ Alert_window alert=new Alert_window();
         });
         GridPane.setConstraints(submit, 0, 4);
 
-        // Close Button
+
         Button btnClose = new Button("Close");
         btnClose.setOnAction(e -> window.close());
         GridPane.setConstraints(btnClose, 1, 4);
         btnClose.getStyleClass().add("button-white");
 
-        // Add controls to grid
         grid.getChildren().addAll(title, emailLabel, emailField, passwordLabel, passwordField, submit, btnClose);
         grid.setAlignment(Pos.CENTER);
 
-        // Create and show the scene
+
         Scene scene = new Scene(grid, 500, 500);
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
@@ -139,25 +92,25 @@ Alert_window alert=new Alert_window();
         window.show();
     }
 
-    // Open the admin panel after successful login
+
     private void openAdminPanel() {
         try {
-            // Use the correct path relative to the resources folder
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/demo1/adminPanel.fxml"));
             Scene adminScene = new Scene(loader.load());
 
-            // Get the current stage and change the scene to the admin panel
+
             Stage stage = new Stage();
             stage.setScene(adminScene);
             stage.setTitle("Admin Panel");
-            stage.show(); // Show the admin panel window
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Failed to load admin panel");
         }
     }
 
-    // Show alert dialog
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
