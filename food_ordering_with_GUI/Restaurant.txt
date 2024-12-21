@@ -1,4 +1,4 @@
-Kansas,Cairo Nasr City,Fried Chicken
+kansas,Cairo Nasr City,Fried Chicken
 Heart Attack,Giza Dokki,Fried Chicken
 Pronto Pizza,Cairo Heliopolis,Pizza
 Pizza Station,Giza Mohandessin,Pizza

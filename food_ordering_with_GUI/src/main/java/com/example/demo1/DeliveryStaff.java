@@ -20,8 +20,7 @@ public class DeliveryStaff extends Person implements Serializable {
     Alert_window alert = new Alert_window();
 
 
-    private String firstName;
-    private String lastName;
+
     private String location;
 
     public enum Status {FREE, WORK;}
@@ -30,8 +29,8 @@ public class DeliveryStaff extends Person implements Serializable {
 
 
     public DeliveryStaff(String firstName, String lastName, String location, Status status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstName;
+        this.lastname = lastName;
         this.location = location;
 
         this.status = status;
@@ -152,11 +151,11 @@ public class DeliveryStaff extends Person implements Serializable {
 
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
     public Status getStatus() {
@@ -175,8 +174,8 @@ public class DeliveryStaff extends Person implements Serializable {
     @Override
     public String toString() {
         return "DeliveryStaff{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstName='" + firstname + '\'' +
+                ", lastName='" + lastname + '\'' +
                 ", location='" + location + '\'' +
 
                 '}';
