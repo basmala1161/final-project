@@ -1,7 +1,0 @@
-Order ID: 24
-Order Details:
-Grilled Calamari - 180.0 EGP
-
-Total Price: 180.0 EGP
-Assigned Time: 2024-12-20T00:41:59.793030
---------------------------
